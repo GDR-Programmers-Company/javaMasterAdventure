@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Group?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.media.MediaView?>
+
+<AnchorPane maxHeight="768.0" maxWidth="1366.0" minHeight="768.0" minWidth="1366.0" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.controllers.homeMenuController">
+   <children>
+      <MediaView id="mediaView" fx:id="mediaView" fitHeight="768.0" fitWidth="1366.0" />
+      <ImageView fx:id="menuLogo" fitHeight="194.0" fitWidth="560.0" layoutX="403.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../assets/images.menu/logo.png" />
+         </image>
+      </ImageView>
+      <Group layoutX="284.0" layoutY="-57.0">
+         <children>
+            <ImageView fx:id="newGameBackground" fitHeight="184.0" fitWidth="464.0" layoutX="167.0" layoutY="298.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../assets/images.menu/newGameOff.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="loadGameBackground" fitHeight="184.0" fitWidth="464.0" layoutX="167.0" layoutY="415.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../assets/images.menu/loadGameOff.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="saveGameBackground" fitHeight="184.0" fitWidth="464.0" layoutX="167.0" layoutY="537.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../assets/images.menu/saveGameOff.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="quitGameBackground" fitHeight="184.0" fitWidth="464.0" layoutX="167.0" layoutY="656.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../assets/images.menu/quitGameOff.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="newGame" fitHeight="184.0" fitWidth="464.0" layoutX="167.0" layoutY="298.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../assets/images.menu/newGameOff.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="loadGame" fitHeight="184.0" fitWidth="464.0" layoutX="167.0" layoutY="415.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../assets/images.menu/loadGameOff.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="saveGame" fitHeight="184.0" fitWidth="464.0" layoutX="167.0" layoutY="537.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../assets/images.menu/saveGameOff.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="quitGame" fitHeight="184.0" fitWidth="464.0" layoutX="167.0" layoutY="656.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../assets/images.menu/quitGameOff.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Group>
+   </children>
+</AnchorPane>

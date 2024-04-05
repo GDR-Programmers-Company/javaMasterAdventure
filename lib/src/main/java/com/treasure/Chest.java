@@ -1,6 +1,6 @@
 package com.treasure;
 
-import com.effect.typewriterEffect;
+import com.effect.TypewriterEffect;
 import com.inventary.InventarioPersonaggio;
 import com.objects.Oggetto;
 //Definizione della classe Forziere che contiene un array di Oggetto
@@ -24,7 +24,7 @@ public class Chest {
 	            String descrizione = oggetto.getDescrizione();
 	            
 	                // Stampa il nome dell'oggetto e i suoi attributi (potenza, difesa, punti salute)
-	                typewriterEffect.type(i + "- " + oggetto.getNome() +
+	            TypewriterEffect.getInstance().type(i + "- " + oggetto.getNome() +
 	                      (potenza != 0 ? " | Potenza: " + potenza : "") +
 	                      (difesa != 0 ? " | Difesa: " + difesa : "") +
 	                      (puntiSalute != 0 ? " | Punti Salute: +" + puntiSalute : "")+

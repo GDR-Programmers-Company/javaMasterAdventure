@@ -1,5 +1,5 @@
 package com.inventary;
-import com.effect.typewriterEffect;
+import com.effect.TypewriterEffect;
 import com.objects.*;
 public class InventarioPersonaggio {
 	 private Oggetto[] oggetti;
@@ -14,7 +14,7 @@ public class InventarioPersonaggio {
 	        if (numeroOggetti < oggetti.length) {
 	            oggetti[numeroOggetti] = oggetto;
 	            numeroOggetti++;
-	            typewriterEffect.type("Oggetto aggiunto all'inventario: " + oggetto.getNome(), 500);
+	            TypewriterEffect.getInstance().type("Oggetto aggiunto all'inventario: " + oggetto.getNome(), 500);
 	        } else {
 	            System.out.println("L'inventario è pieno, non è possibile aggiungere altri oggetti.");
 	        }

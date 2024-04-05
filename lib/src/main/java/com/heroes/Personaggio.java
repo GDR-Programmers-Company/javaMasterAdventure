@@ -1,13 +1,18 @@
 package com.heroes;
 import com.armor.Armatura;
-import com.effect.typewriterEffect;
-import com.enemy.*;
+import com.combatSystem.RisultatoAttacco;
+import com.effect.TypewriterSequencer;
+
 import com.food.Cibo;
 import com.magicItems.oggettoMagico;
 import com.missionObject.oggettoMissione;
 import com.weapons.Arma;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
 
 import java.util.Scanner;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CountDownLatch;
 import java.util.Random;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,9 +20,17 @@ import java.util.List;
 public class Personaggio {
     private String nome;
     private String classe;
+    private String risultatoAttacco;
     private int puntiVita;
     private boolean haChiave;
     private boolean escape;
+    private TextArea textAreaGlobale;
+    private Button sendButton;
+    private boolean attacchiDisabilitati = false;
+
+    private TypewriterSequencer typewriterSequencer;
+    private static boolean sequenzaCompletata = false;
+
     private List<Arma> inventarioArmi;
     private List<Armatura> inventarioArmature;
     private List<oggettoMissione> inventarioOggettiMissione;
@@ -26,17 +39,19 @@ public class Personaggio {
 
 
     // Costruttore
-    public Personaggio(String nome, String classe, int puntiVita) {
+    public Personaggio(String nome, String classe, int puntiVita, TextArea textAreaConsole, Button sendButton) {
         this.nome = nome;
         this.classe = classe;
         this.puntiVita = puntiVita;
         this.haChiave = false;
+        this.textAreaGlobale = textAreaConsole;
+        this.typewriterSequencer = new TypewriterSequencer(textAreaConsole);
         this.inventarioArmi = new ArrayList<>();
         this.inventarioArmature = new ArrayList<>();
         this.inventarioOggettiMissione = new ArrayList<>();
         this.inventarioCibo = new ArrayList<>();
         this.inventarioOggettiMagici = new ArrayList<>();
-
+        this.sendButton = sendButton;
     }
     
     public Object[] dannoArma() {
@@ -58,39 +73,41 @@ public class Personaggio {
         Object[] risultato = {nomeArmaUtilizzata, dannoInflitto};
         return risultato;
     }
-    // Metodo per attaccare un nemico
-    public void attacca(Nemico nemico) {
-        Scanner scanner = new Scanner(System.in);
+
+
+    public RisultatoAttacco attacca(Personaggio rivale) {
         Random random = new Random();
         Object[] armaEquipaggiata = dannoArma();
         String nomeArmaUtilizzata = (String) armaEquipaggiata[0];
         int dannoInflitto = (int) armaEquipaggiata[1];
+        int dado = random.nextInt(20) + 1;
 
-        // Lancio del dado
-        typewriterEffect.type("Premi Invio per lanciare il dado per l'attacco...", 100);
+        String risultatoAttacco;
+        boolean successo;
 
-        scanner.nextLine();
-        int dado = random.nextInt(20) + 1; // Simula il lancio di un dado da 1 a 20
-        typewriterEffect.type("Hai lanciato il dado e ottenuto: " + dado, 500);
-
-
-        // Implementazione dell'attacco
-        typewriterEffect.type(nome + " attacca " + nemico.getNome() + "...", 500);
         if (dado >= 10) {
-            int danno = random.nextInt(10) + 1; // Danno casuale da 1 a 10
-            typewriterEffect.type("Colpito! " + nemico.getNome() + " con "+ nomeArmaUtilizzata +" subisce " + (danno+dannoInflitto) + " danni!", 500);
-            nemico.subisciDanno(danno+dannoInflitto);
-
+            int danno = random.nextInt(10) + 1;
+            risultatoAttacco = "Colpito! " + rivale.getNome() + " con " + nomeArmaUtilizzata + " subisce " + (danno + dannoInflitto) + " danni! \n";
+            rivale.subisciDanno(danno + dannoInflitto);
+            successo = true;
         } else {
-            typewriterEffect.type("Mancato!", 500);
+            risultatoAttacco = "Mancato! \n \n";
+            successo = false;
         }
-  
-        
+
+        Object[] messaggi = {
+        		nome +" ha lanciato il dado e ottenuto: " + dado +"\n", 500,
+        	    nome + " attacca " + rivale.getNome()+ "... \n", 500,
+        	    risultatoAttacco, 500
+        	};
+
+        return new RisultatoAttacco(messaggi, successo);
     }
+
+
     
     /*
      *  
-
     	// Combinazione di oggetti (esempio: armatura con un cibo)
     	// Supponiamo che il personaggio indossi l'armatura di cuoio e mangi un pezzo di pane elfico per aumentare la salute
     	int nuovaDifesa = armaturaCuoio.getDifesa();
@@ -100,27 +117,27 @@ public class Personaggio {
     */
     
  // Metodo per attaccare un nemico
-    public boolean escape(Nemico nemico) {
+    public boolean escape(Personaggio nemico) {
     	escape = false;
         Scanner scanner = new Scanner(System.in);
         Random random = new Random();
 
         // Lancio del dado
-        typewriterEffect.type("Premi Invio per lanciare il dado per cercare di scappare...", 100);
+        typewriterSequencer.typeSequence("Premi Invio per lanciare il dado per cercare di scappare...", 100);
 
         scanner.nextLine();
         int dado = random.nextInt(20) + 1; // Simula il lancio di un dado da 1 a 20
-        typewriterEffect.type("Hai lanciato il dado e ottenuto: " + dado, 500);
+        typewriterSequencer.typeSequence("Hai lanciato il dado e ottenuto: " + dado, 500);
 
 
         // Implementazione dell'attacco
-        typewriterEffect.type(nome + " cerca di divincolarsi dal " + nemico.getNome() + "...", 500);
+        typewriterSequencer.typeSequence(nome + " cerca di divincolarsi dal " + nemico.getNome() + "...", 500);
         if (dado >= 6) {
-            typewriterEffect.type("Sei riuscito a liberarti dal " + nemico.getNome(), 500);
+        	typewriterSequencer.typeSequence("Sei riuscito a liberarti dal " + nemico.getNome(), 500);
             escape = true;
            
         } else {
-            typewriterEffect.type("Il "+ nemico.getNome()+ " ha la meglio su di te...", 500);
+        	typewriterSequencer.typeSequence("Il "+ nemico.getNome()+ " ha la meglio su di te...", 500);
             escape = false;
         }
         return escape;
@@ -129,10 +146,7 @@ public class Personaggio {
     // Metodo per subire danni
     public void subisciDanno(int danno) {
         puntiVita -= danno;
-        if (puntiVita <= 0) {
-        	typewriterEffect.type(nome + " è stato sconfitto!", 500);
-            gameOver();
-        }
+
     }
 
     // Metodo per impostare la chiave
@@ -147,7 +161,7 @@ public class Personaggio {
 
     // Metodo per il Game Over
     public void gameOver() {
-    	    typewriterEffect.type("Game Over. Ricomincia il gioco.", 500);
+    	typewriterSequencer.typeSequence("Game Over. Ricomincia il gioco.", 500);
 
         // Altri eventi di ripristino del gioco potrebbero essere aggiunti qui
         // ad esempio, ripristinare i punti vita del personaggio e posizionarlo all'inizio del dungeon
@@ -206,4 +220,12 @@ public class Personaggio {
     public void rimuoviOggettiMagici(oggettoMagico oggettiMagici) {
         inventarioOggettiMagici.remove(oggettiMagici);
     }
+    public void setAttacchiDisabilitati(boolean disabilitati) {
+        this.attacchiDisabilitati = disabilitati;
+    }
+
+    public boolean isAttacchiDisabilitati() {
+        return attacchiDisabilitati;
+    }
+	
 }
