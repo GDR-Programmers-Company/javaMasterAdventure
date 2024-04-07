@@ -7,36 +7,37 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.controllers.SceneController">
+<AnchorPane minHeight="768.0" minWidth="1366.0" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.controllers.SceneController">
    <children>
-      <Label layoutX="491.0" layoutY="52.0" prefHeight="75.0" prefWidth="371.0" text="newGame view">
+      <Label layoutX="489.0" layoutY="20.0" prefHeight="75.0" prefWidth="371.0" text="newGame view">
          <font>
             <Font size="52.0" />
          </font>
       </Label>
-      <Button layoutX="676.0" layoutY="679.0" mnemonicParsing="false" onAction="#gameOptions" prefHeight="50.0" prefWidth="172.0" text="Torna al menu">
+      <Button layoutX="1147.0" layoutY="616.0" mnemonicParsing="false" onAction="#gameOptions" prefHeight="50.0" prefWidth="172.0" text="Torna al menu">
          <font>
             <Font size="22.0" />
          </font>
       </Button>
-      <TextArea fx:id="gameConsole" editable="false" layoutX="430.0" layoutY="170.0" prefHeight="478.0" prefWidth="867.0">
+      <TextArea fx:id="gameConsole" editable="false" layoutX="523.0" layoutY="111.0" prefHeight="458.0" prefWidth="796.0">
          <font>
             <Font size="17.0" />
-         </font></TextArea>
-      <TextField fx:id="playerInput" layoutX="873.0" layoutY="679.0" prefHeight="50.0" prefWidth="117.0">
+         </font>
+      </TextArea>
+      <Button fx:id="lanciaDadi" layoutX="833.0" layoutY="616.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="172.0" text="Lancia i dadi">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Button>
+      <Button fx:id="sendInput" layoutX="518.0" layoutY="616.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="111.0" text="Scegli">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Button>
+      <TextField fx:id="playerInput" layoutX="674.0" layoutY="616.0" prefHeight="50.0" prefWidth="117.0">
          <font>
             <Font size="22.0" />
          </font>
       </TextField>
-      <Button fx:id="sendInput" layoutX="1000.0" layoutY="679.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="111.0" text="Scegli">
-         <font>
-            <Font size="22.0" />
-         </font>
-      </Button>
-      <Button fx:id="lanciaDadi" layoutX="1125.0" layoutY="679.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="172.0" text="Lancia i dadi">
-         <font>
-            <Font size="22.0" />
-         </font>
-      </Button>
    </children>
 </AnchorPane>
